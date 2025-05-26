@@ -13,10 +13,11 @@ const loggerMiddleware = require('./middleware/loggerMiddleware');
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'https://military-asset-management-system-frontend-guq3.onrender.com'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
+
 
 app.use(express.json());
 app.use(loggerMiddleware);
