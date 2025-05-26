@@ -1,9 +1,8 @@
 import React, { useState, useContext } from 'react';
+import api, { setAuthToken } from '../services/api'; // ✅ Use api instance
 import { AuthContext } from '../contexts/AuthContext';
-import { setAuthToken } from '../services/api';
-import api from '../services/api'; // ✅ Use centralized API instance
 import { useNavigate } from 'react-router-dom';
-import './Login.css';  // Import the CSS file
+import './Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -25,8 +24,6 @@ function Login() {
       });
 
       const token = response.data.token;
-
-      // Decode token to get user info
       const payload = JSON.parse(atob(token.split('.')[1]));
       const { id, role: userRole } = payload;
 
@@ -47,29 +44,15 @@ function Login() {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Email:</label><br />
-          <input
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-          />
+          <input type="email" value={email} onChange={e => setEmail(e.target.value)} required />
         </div>
         <div>
           <label>Password:</label><br />
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
+          <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
         </div>
         <div>
           <label>Role:</label><br />
-          <select
-            value={role}
-            onChange={e => setRole(e.target.value)}
-            required
-          >
+          <select value={role} onChange={e => setRole(e.target.value)} required>
             <option value="admin">Admin</option>
             <option value="base_commander">Base Commander</option>
             <option value="logistics_officer">Logistics Officer</option>
