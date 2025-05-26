@@ -1,4 +1,4 @@
-require('dotenv').config(); // ✅ Load .env variables first
+require('dotenv').config(); //
 
 const express = require('express');
 const cors = require('cors');
@@ -18,17 +18,19 @@ app.use(cors({
   credentials: true
 }));
 
-
 app.use(express.json());
 app.use(loggerMiddleware);
 
-// ❌ Remove express-session since you're using JWT
-// app.use(session({ ... })); 
 
 app.use('/api/auth', authRoutes);
 app.use('/api/assets', assetRoutes);
 app.use('/api/purchases', purchaseRoutes);
 app.use('/api/transfers', transferRoutes);
+
+
+app.get('/', (req, res) => {
+  res.send('✅ Military Asset Management Backend is running!');
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
